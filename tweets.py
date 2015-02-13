@@ -21,14 +21,16 @@ for follower in tweepy.Cursor(api.followers).items():
     except TweepError:
         continue
 
-filename=open(argfile,'r')
+filename=open(argfile,'rw+')
 f=filename.readlines()
 filename.close()
- 
+
 for line in f:
     try:
-        api.update_status(status=line)
+        img = 'imgs/'+line.split('.')[0]+'.jpg'
+        api.update_with_media(img, status=line)
     except TweepError:
         continue
-    time.sleep(300)#Tweet every 15 minutes
+
+    time.sleep(600)#Tweet every 10 minutes
 
